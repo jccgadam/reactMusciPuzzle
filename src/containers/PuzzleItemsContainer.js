@@ -8,7 +8,9 @@ import createjs from 'createjs-module';
 import 'antd/es/row/style/css.js';
 import 'antd/es/col/style/css.js';
 import 'antd/es/select/style/css';
+import vconsole from 'vconsole';
 
+let v = new vconsole();
 const songSrc = [
                     { key:'easy',
                       value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you+(mp3cut.net).mp3'

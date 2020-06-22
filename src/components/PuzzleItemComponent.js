@@ -4,7 +4,7 @@ import { Button,Card } from 'antd';
 import createjs from 'createjs-module';
 import 'antd/es/card/style/index.css';
 import 'antd/es/button/style/index.css';
-import 'antd/es/cascader/style/index.css';
+import 'antd/es/cascader/style/css.js';
 const { Sound } = createjs;
 
 const PuzzleItemComponent = class extends React.Component{
@@ -22,13 +22,13 @@ const PuzzleItemComponent = class extends React.Component{
 
     render(){
         const { props,createSoundItem } = this;
-        const { id,puzzleItem,setIsPlaying,playing } = props;
+        const { id,puzzleItem,setIsPlaying,playing,title } = props;
         const soundItem = createSoundItem(id,setIsPlaying);
         const play = ()=>{
             setIsPlaying(true);
-            soundItem.play();
+            soundItem.play(id);
         }
-        return <Card title={id+''}><button onClick={()=>play()} style={{ width: 300 }} disabled={playing}>play</button></Card>
+        return <Card title={title+''}><Button onClick={()=>play()} style={{ width: 300 }} disabled={playing}>play</Button></Card>
     }
 }
 

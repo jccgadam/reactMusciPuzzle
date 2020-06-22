@@ -19,7 +19,7 @@ const PuzzleItemsContainer  = class extends React.Component{
     }
     handleInit = async  ()=>{
         const { init } = helpers;
-        const audioSprite = await init();
+        const audioSprite = _.shuffle(await init());
         this.setState({
             audioSprite
         })
@@ -68,10 +68,14 @@ const PuzzleItemsContainer  = class extends React.Component{
 
     renderItems = (audioSprite,len,setIsPlaying,playing)=>{
         let span = Math.round(24/len);
+        console.log(audioSprite);
         return <Row>
                 { _.map(audioSprite,(item,i)=>
                     <Col spa={span} key={i}>
-                        <PuzzleItemComponent id={i} key={i} puzzleItem={item}
+                        <PuzzleItemComponent id={item.id}
+                                             key={i}
+                                             title={i}
+                                             puzzleItem={item}
                                              setIsPlaying={setIsPlaying}
                                              playing={playing}
                         />
@@ -79,6 +83,8 @@ const PuzzleItemsContainer  = class extends React.Component{
                 }
                </Row>
     }
+
+
     render(){
         const { renderItems,handleInit,state,setIsPlaying } = this;
         const { audioSprite,playing } = state;

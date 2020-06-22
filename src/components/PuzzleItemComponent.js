@@ -22,13 +22,15 @@ const PuzzleItemComponent = class extends React.Component{
 
     render(){
         const { props,createSoundItem } = this;
-        const { id,puzzleItem,setIsPlaying,playing,title } = props;
+        const { id,puzzleItem,setIsPlaying,playing,title,showAns } = props;
         const soundItem = createSoundItem(id,setIsPlaying);
         const play = ()=>{
             setIsPlaying(true);
             soundItem.play(id);
         }
-        return <Card title={title+''}><Button onClick={()=>play()} style={{ width: 300 }} disabled={playing}>play</Button></Card>
+        return <Card title={title+''} extra={showAns&&<div>Seq: {id}</div>}>
+                    <Button onClick={()=>play()} style={{ width: 300 }} disabled={playing}>play</Button>
+               </Card>
     }
 }
 

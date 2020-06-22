@@ -14,7 +14,8 @@ const PuzzleItemsContainer  = class extends React.Component{
         this.state = {
             audioSprite:[],
             playing:false,
-            audioQueue: null
+            audioQueue: null,
+            showAns: false
         }
     }
     handleInit = async  ()=>{
@@ -60,15 +61,15 @@ const PuzzleItemsContainer  = class extends React.Component{
         }
     };
 
+
     setIsPlaying = (playing)=>{
         this.setState({
             playing
         })
     }
 
-    renderItems = (audioSprite,len,setIsPlaying,playing)=>{
+    renderItems = (audioSprite,len,setIsPlaying,playing,setShowAns,showAns)=>{
         let span = Math.round(24/len);
-        console.log(audioSprite);
         return <Row>
                 { _.map(audioSprite,(item,i)=>
                     <Col spa={span} key={i}>
@@ -78,20 +79,30 @@ const PuzzleItemsContainer  = class extends React.Component{
                                              puzzleItem={item}
                                              setIsPlaying={setIsPlaying}
                                              playing={playing}
+                                             setShowAns={setShowAns}
+                                             showAns={showAns}
                         />
                     </Col>)
                 }
                </Row>
     }
 
+    setShowAns = (showAns)=>{
+        this.setState({
+            showAns
+        })
+    }
+
+
 
     render(){
-        const { renderItems,handleInit,state,setIsPlaying } = this;
-        const { audioSprite,playing } = state;
+        const { renderItems,handleInit,state,setIsPlaying,setShowAns } = this;
+        const { audioSprite,playing,showAns } = state;
         const len = audioSprite.length;
         return <div>
-            { renderItems(audioSprite,len,setIsPlaying,playing) }
+            { renderItems(audioSprite,len,setIsPlaying,playing,setShowAns,showAns) }
             <Button onClick={()=>handleInit()}>Init</Button>
+            { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
         </div>
     }
 }

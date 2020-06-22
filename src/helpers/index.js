@@ -27,6 +27,7 @@ const generateSprite = (maxLen,cut)=>{
     let startTime = 0;
     for(let i=0;i<cut;i++){
         let endTime = startTime + duration < maxLen ? startTime + duration : maxLen;
+        duration = Math.min(duration,endTime-startTime);
         audioSprite.push({
             id,startTime,endTime,duration
         });
@@ -44,7 +45,6 @@ const fileUploadWrapper = ()=>{
     })
 }
 const init = async (src,maxLen)=>{
-    console.log(src,maxLen)
     // let src = songSrc;
     const audioSprite = (generateSprite(maxLen,4));
     let sounds = [{ src, data: { audioSprite }} ];

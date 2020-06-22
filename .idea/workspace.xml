@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/PuzzleItemComponent.js" afterPath="$PROJECT_DIR$/src/components/PuzzleItemComponent.js" />
       <change beforePath="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" afterPath="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" />
       <change beforePath="$PROJECT_DIR$/src/helpers/index.js" afterPath="$PROJECT_DIR$/src/helpers/index.js" />
     </list>
@@ -20,8 +21,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/helpers/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="45" column="34" lean-forward="true" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+            <state relative-caret-position="464">
+              <caret line="29" column="56" lean-forward="false" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
               <folding>
                 <element signature="e#37#60#0" expanded="true" />
               </folding>
@@ -76,8 +77,8 @@
       <file leaf-file-name="PuzzleItemsContainer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="176">
+              <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -86,8 +87,8 @@
       <file leaf-file-name="PuzzleItemComponent.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/PuzzleItemComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="448">
+              <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -112,8 +113,8 @@
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/PuzzleItemComponent.js" />
         <option value="$PROJECT_DIR$/src/helpers/index.js" />
+        <option value="$PROJECT_DIR$/src/components/PuzzleItemComponent.js" />
         <option value="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" />
       </list>
     </option>
@@ -241,12 +242,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592781198367</updated>
-      <workItem from="1592781199525" duration="16029000" />
+      <workItem from="1592781199525" duration="16747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16029000" />
+    <option name="totallyTimeSpent" value="16747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
@@ -354,8 +355,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/PuzzleItemComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="448">
+          <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -364,8 +365,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/helpers/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="45" column="34" lean-forward="true" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+        <state relative-caret-position="464">
+          <caret line="29" column="56" lean-forward="false" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
           <folding>
             <element signature="e#37#60#0" expanded="true" />
           </folding>
@@ -374,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        <state relative-caret-position="176">
+          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding />
         </state>
       </provider>

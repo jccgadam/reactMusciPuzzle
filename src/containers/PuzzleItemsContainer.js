@@ -15,7 +15,7 @@ const songSrc = [
                     {
                         key:'easy',
                         value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you-34s.mp3',
-                        maxLen: 34*1000
+                        maxLen: 33*1000
                     },
                     {   key:'normal',
                         value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice-30.mp3',

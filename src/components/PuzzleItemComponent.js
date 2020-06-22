@@ -15,6 +15,7 @@ const PuzzleItemComponent = class extends React.Component{
     createSoundItem = (id,setIsPlaying)=>{
         let soundInstance = Sound.createInstance(id);
         soundInstance.on('complete',()=>{
+            console.log('playing finished',id);
             setIsPlaying(false);
         })
         return soundInstance;
@@ -25,6 +26,7 @@ const PuzzleItemComponent = class extends React.Component{
         const { id,setIsPlaying,playing,title,showAns } = props;
         const soundItem = createSoundItem(id,setIsPlaying);
         const play = ()=>{
+            console.log(id);
             setIsPlaying(true);
             soundItem.play(id);
         }

@@ -22,7 +22,7 @@ const PuzzleItemComponent = class extends React.Component{
 
     render(){
         const { props,createSoundItem } = this;
-        const { id,puzzleItem,setIsPlaying,playing,title,showAns } = props;
+        const { id,setIsPlaying,playing,title,showAns } = props;
         const soundItem = createSoundItem(id,setIsPlaying);
         const play = ()=>{
             setIsPlaying(true);

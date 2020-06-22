@@ -4,10 +4,9 @@ import _ from 'lodash';
 import { Queue} from 'buckets-js';
 import createjs from 'createjs-module';
 
-let songSrc = 'https://muscipuzzlesongs.s3.amazonaws.com/miss+you+(mp3cut.net).mp3';
 let { Sound } = createjs;
 
-
+/*
 const playMusic = (id)=>{
     Sound.removeAllSounds();
     let src = songSrc;
@@ -19,7 +18,7 @@ const playMusic = (id)=>{
     createjs.Sound.on("fileload", ()=>{
         Sound.play(id);
     });
-}
+}*/
 
 const generateSprite = (maxLen,cut)=>{
     let audioSprite = [];
@@ -43,8 +42,8 @@ const fileUploadWrapper = ()=>{
         })
     })
 }
-const init = async ()=>{
-    let src = songSrc;
+const init = async (src)=>{
+    // let src = songSrc;
     const audioSprite = (generateSprite(30000,4));
     let sounds = [{ src, data: { audioSprite }} ];
     Sound.registerPlugins([createjs.HTMLAudioPlugin]);
@@ -87,7 +86,7 @@ const init = async ()=>{
 
 
 export default {
-    playMusic,
-    generateSprite,
+    // playMusic,
+    // generateSprite,
     init
 }

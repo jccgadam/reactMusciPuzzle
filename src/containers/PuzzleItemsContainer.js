@@ -1,4 +1,4 @@
-import { Card,Button,Row,Col } from 'antd';
+import { Card,Button,Row,Col,Select } from 'antd';
 import PuzzleItemComponent from '../components/PuzzleItemComponent';
 import React from 'react';
 import helpers from "../helpers";
@@ -7,7 +7,17 @@ import {Queue} from "buckets-js";
 import createjs from 'createjs-module';
 import 'antd/es/row/style/css.js';
 import 'antd/es/col/style/css.js';
+import 'antd/es/select/style/css';
 
+const songSrc = [
+                    { key:'easy',
+                      value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you+(mp3cut.net).mp3'
+                    },
+                    { key:'normal',
+                      value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice+(mp3cut.net).mp3'
+                    }
+                ];
+const { Option } = Select;
 const PuzzleItemsContainer  = class extends React.Component{
     constructor(){
         super();
@@ -16,12 +26,32 @@ const PuzzleItemsContainer  = class extends React.Component{
             started: false,
             playing:false,
             audioQueue: null,
-            showAns: false
+            showAns: false,
+            songURL: songSrc[0].value
         }
     }
-    handleInit = async  ()=>{
+
+    handleChangeSel = (songURL,v)=>{
+        this.setState({
+            songURL
+        })
+    }
+
+    renderSel = ()=>{
+        const { handleChangeSel } = this;
+        return     <Select style={{ width: 120 }} onChange={handleChangeSel} style={{ width: '100px' }} defaultValue={songSrc[0].value}>
+                        {
+                            _.map(songSrc,({key,value},i)=>{
+                                return <Option value={value} key={i} >{key}</Option>
+                            })
+                        }
+                   </Select>
+
+    }
+
+    handleInit = async  (songURL)=>{
         const { init } = helpers;
-        const audioSprite = _.shuffle(await init());
+        const audioSprite = _.shuffle(await init(songURL));
         this.setState({
             audioSprite,
             started: true
@@ -98,13 +128,15 @@ const PuzzleItemsContainer  = class extends React.Component{
 
 
     render(){
-        const { renderItems,handleInit,state,setIsPlaying,setShowAns } = this;
-        const { audioSprite,playing,showAns,started } = state;
+        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel } = this;
+        const { audioSprite,playing,showAns,started,songURL } = state;
         const len = audioSprite.length;
+
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
                 { renderItems(audioSprite,len,setIsPlaying,playing,setShowAns,showAns) }
                 <Row style={{ marginTop: 10 }}>
-                    { !started && <Button onClick={()=>handleInit()}>Start Game</Button> }
+                    { !started&&renderSel() }
+                    { !started && <Button onClick={()=>handleInit(songURL)}>Start Game</Button> }
                     { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
                 </Row>
         </div>

@@ -47,7 +47,7 @@ const init = async (src)=>{
     // let src = songSrc;
     const audioSprite = (generateSprite(30000,4));
     let sounds = [{ src, data: { audioSprite }} ];
-    Sound.registerPlugins([createjs.HTMLAudioPlugin]);
+    Sound.registerPlugins([createjs.HTMLAudioPlugin,createjs.WebAudioPlugin]);
     Sound.registerSounds(sounds);
     let tmpSound = null;
     let header = null;

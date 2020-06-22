@@ -16,7 +16,7 @@ const songSrc = [
                       value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you+(mp3cut.net).mp3'
                     },
                     { key:'normal',
-                      value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice+(mp3cut.net).mp3'
+                      value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice+(mp3cut.net-30s)+.mp3'
                     }
                 ];
 const { Option } = Select;

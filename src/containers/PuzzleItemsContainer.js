@@ -54,6 +54,7 @@ const PuzzleItemsContainer  = class extends React.Component{
     handleInit = async  (songURL)=>{
         const { init } = helpers;
         const audioSprite = _.shuffle(await init(songURL));
+        console.log('game initialized');
         this.setState({
             audioSprite,
             started: true

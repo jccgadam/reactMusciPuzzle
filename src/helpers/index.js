@@ -38,6 +38,7 @@ const generateSprite = (maxLen,cut)=>{
 const fileUploadWrapper = ()=>{
     return new Promise(resolve =>{
         Sound.on("fileload", (e)=>{
+            console.log('file has uploaded');
                 resolve();
         })
     })

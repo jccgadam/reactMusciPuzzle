@@ -12,11 +12,14 @@ import vconsole from 'vconsole';
 
 let v = new vconsole();
 const songSrc = [
-                    { key:'easy',
-                      value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you+(mp3cut.net).mp3'
+                    {
+                        key:'easy',
+                        value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you-34s.mp3',
+                        maxLen: 34*1000
                     },
-                    { key:'normal',
-                      value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice+(mp3cut.net-30s)+.mp3'
+                    {   key:'normal',
+                        value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice-30.mp3',
+                        maxLen: 30*1000
                     }
                 ];
 const { Option } = Select;
@@ -29,13 +32,16 @@ const PuzzleItemsContainer  = class extends React.Component{
             playing:false,
             audioQueue: null,
             showAns: false,
-            songURL: songSrc[0].value
+            songURL: songSrc[0].value,
+            maxLen: songSrc[0].maxLen
         }
     }
 
     handleChangeSel = (songURL,v)=>{
+        const { maxlen } = v;
         this.setState({
-            songURL
+            songURL,
+            maxLen:maxlen
         })
     }
 
@@ -43,19 +49,17 @@ const PuzzleItemsContainer  = class extends React.Component{
         const { handleChangeSel } = this;
         return     <Select style={{ width: 120 }} onChange={handleChangeSel} style={{ width: '100px' }} defaultValue={songSrc[0].value}>
                         {
-                            _.map(songSrc,({key,value},i)=>{
-                                return <Option value={value} key={i} >{key}</Option>
+                            _.map(songSrc,({key,value,maxLen},i)=>{
+                                return <Option value={value} key={i} maxlen={maxLen} >{key}</Option>
                             })
                         }
                    </Select>
 
     }
 
-    handleInit = async  (songURL)=>{
-        console.log('game started');
+    handleInit = async  (songURL,maxLen)=>{
         const { init } = helpers;
-        const audioSprite = _.shuffle(await init(songURL));
-        console.log('game initialized');
+        const audioSprite = _.shuffle(await init(songURL,maxLen));
         this.setState({
             audioSprite,
             started: true
@@ -133,14 +137,14 @@ const PuzzleItemsContainer  = class extends React.Component{
 
     render(){
         const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel } = this;
-        const { audioSprite,playing,showAns,started,songURL } = state;
+        const { audioSprite,playing,showAns,started,songURL,maxLen } = state;
         const len = audioSprite.length;
 
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
                 { renderItems(audioSprite,len,setIsPlaying,playing,setShowAns,showAns) }
                 <Row style={{ marginTop: 10 }}>
                     { !started&&renderSel() }
-                    { !started && <Button onClick={()=>handleInit(songURL)}>Start Game</Button> }
+                    { !started && <Button onClick={()=>handleInit(songURL,maxLen)}>Start Game</Button> }
                     { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
                 </Row>
         </div>

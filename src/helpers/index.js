@@ -43,9 +43,10 @@ const fileUploadWrapper = ()=>{
         })
     })
 }
-const init = async (src)=>{
+const init = async (src,maxLen)=>{
+    console.log(src,maxLen)
     // let src = songSrc;
-    const audioSprite = (generateSprite(30000,4));
+    const audioSprite = (generateSprite(maxLen,4));
     let sounds = [{ src, data: { audioSprite }} ];
     Sound.registerPlugins([createjs.HTMLAudioPlugin,createjs.WebAudioPlugin]);
     Sound.registerSounds(sounds);

@@ -13,6 +13,7 @@ const PuzzleItemsContainer  = class extends React.Component{
         super();
         this.state = {
             audioSprite:[],
+            started: false,
             playing:false,
             audioQueue: null,
             showAns: false
@@ -22,7 +23,8 @@ const PuzzleItemsContainer  = class extends React.Component{
         const { init } = helpers;
         const audioSprite = _.shuffle(await init());
         this.setState({
-            audioSprite
+            audioSprite,
+            started: true
         })
     }
 
@@ -97,12 +99,14 @@ const PuzzleItemsContainer  = class extends React.Component{
 
     render(){
         const { renderItems,handleInit,state,setIsPlaying,setShowAns } = this;
-        const { audioSprite,playing,showAns } = state;
+        const { audioSprite,playing,showAns,started } = state;
         const len = audioSprite.length;
-        return <div>
-            { renderItems(audioSprite,len,setIsPlaying,playing,setShowAns,showAns) }
-            <Button onClick={()=>handleInit()}>Init</Button>
-            { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
+        return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
+                { renderItems(audioSprite,len,setIsPlaying,playing,setShowAns,showAns) }
+                <Row style={{ marginTop: 10 }}>
+                    { !started && <Button onClick={()=>handleInit()}>Start Game</Button> }
+                    { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
+                </Row>
         </div>
     }
 }

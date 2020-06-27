@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Button } from 'antd';
 import helpers from './helpers'
-import PuzzleItemsContainer from './containers/PuzzleItemsContainer';
+import PuzzleContainerWrapper from './containers/PuzzleContainerWrapper';
 
 function App() {
   const { init } = helpers;
@@ -12,7 +12,7 @@ function App() {
   //   console.log(init());
   return (
     <div className=''>
-       <PuzzleItemsContainer/>
+       <PuzzleContainerWrapper/>
       {/*<Button onClick={()=>init()}>play</Button>*/}
     </div>
   );

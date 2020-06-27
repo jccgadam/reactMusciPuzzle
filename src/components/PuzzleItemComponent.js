@@ -1,37 +1,53 @@
 import React from 'react';
 import helpers from '../helpers'
 import { Button,Card } from 'antd';
-import createjs from 'createjs-module';
 import 'antd/es/card/style/index.css';
 import 'antd/es/button/style/index.css';
 import 'antd/es/cascader/style/css.js';
-const { Sound } = createjs;
+import WaveSurfer from 'wavesurfer.js';
 
 const PuzzleItemComponent = class extends React.Component{
     constructor(){
         super();
+        // this.ref = null;
+
     }
 
     createSoundItem = (id,setIsPlaying)=>{
-        let soundInstance = Sound.createInstance(id);
-        soundInstance.on('complete',()=>{
-            console.log('playing finished',id);
-            setIsPlaying(false);
-        })
-        return soundInstance;
+
+    }
+
+
+
+    renderButton = (sound,id,playing,setIsPlaying,setPlayingItemId)=>{
+       const play = ()=>{
+            setIsPlaying(true);
+            setPlayingItemId(id);
+            let soundId = sound.play('key'+id);
+            sound.on('end',()=>{
+                setIsPlaying(false);
+                setPlayingItemId(null);
+            }, soundId);
+
+       };
+
+       const stop = ()=>{
+           sound.stop();
+           setIsPlaying(false);
+           setPlayingItemId(null);
+       };
+
+
+       return <Button onClick={()=> { playing ? stop() : play() } }  style={{ width: 300 }}>{ !playing ? 'play': 'stop' }</Button>
+
     }
 
     render(){
-        const { props,createSoundItem } = this;
-        const { id,setIsPlaying,playing,title,showAns } = props;
-        const soundItem = createSoundItem(id,setIsPlaying);
-        const play = ()=>{
-            console.log(id);
-            setIsPlaying(true);
-            soundItem.play(id);
-        }
+        const { props,createSoundItem,renderButton } = this;
+        const { id,setIsPlaying,playing,title,showAns,sound,setPlayingItemId } = props;
+
         return <Card title={title+''} extra={showAns&&<div>Seq: {id}</div>}>
-                    <Button onClick={()=>play()} style={{ width: 300 }} disabled={playing}>play</Button>
+                { renderButton( sound,id,playing,setIsPlaying,setPlayingItemId )}
                </Card>
     }
 }

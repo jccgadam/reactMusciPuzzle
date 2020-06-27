@@ -1,59 +1,51 @@
-// import createjs from 'createjs';
 
 import _ from 'lodash';
 import { Queue} from 'buckets-js';
-import createjs from 'createjs-module';
-
-let { Sound } = createjs;
-
-/*
-const playMusic = (id)=>{
-    Sound.removeAllSounds();
-    let src = songSrc;
-    // const audioSprite = shuffle(generateSprite(10000,4));
-    // console.log(shuffle(audioSprite));
-    let sounds = { src,id };
-    Sound.registerPlugins([createjs.HTMLAudioPlugin]);
-    Sound.registerSound(sounds);
-    createjs.Sound.on("fileload", ()=>{
-        Sound.play(id);
-    });
-}*/
+import { Howl, Howler } from 'howler';
 
 const generateSprite = (maxLen,cut)=>{
-    let audioSprite = [];
+    let audioSprite = {};
     let id = '0';
     let duration = Math.floor(maxLen/cut);
     let startTime = 0;
     for(let i=0;i<cut;i++){
         let endTime = startTime + duration < maxLen ? startTime + duration : maxLen;
-        duration = Math.min(duration,endTime-startTime);
-        audioSprite.push({
-            id,startTime,endTime,duration
-        });
+        duration = Math.min(duration,(endTime-startTime).toFixed(1));
+        audioSprite['key'+id] = [
+           startTime,duration
+        ];
         startTime = endTime+1;
         id = parseInt(id)+1+'';
     }
     return audioSprite;
 }
-const fileUploadWrapper = ()=>{
-    return new Promise(resolve =>{
-        Sound.on("fileload", (e)=>{
-            console.log('file has uploaded');
-                resolve();
-        })
+const loadSrcWrapper = (src,sprite=[])=>{
+    return new Promise((resolve,reject) => {
+        let sound = new Howl({ src: [src] ,preload:true, sprite,
+            onload:(e)=>{
+                resolve(sound);
+            },
+            onloaderror:(id,error)=>{
+               reject(error)
+            }
+        });
     })
 }
-const init = async (src,maxLen)=>{
-    // let src = songSrc;
-    const audioSprite = (generateSprite(maxLen,4));
-    let sounds = [{ src, data: { audioSprite }} ];
-    Sound.registerPlugins([createjs.HTMLAudioPlugin,createjs.WebAudioPlugin]);
-    Sound.registerSounds(sounds);
-    let tmpSound = null;
-    let header = null;
-    let myQueue = new Queue();
-    await fileUploadWrapper();
+const init = async (src)=>{
+    let preloadSound = null;
+    let sound = null;
+    let sprite = null;
+    try{
+        preloadSound = await loadSrcWrapper(src);
+        let maxLen = preloadSound.duration();
+        sprite = (generateSprite(maxLen*1000,4));
+        sound = await loadSrcWrapper(src,sprite);
+    }catch (e){
+        console.log(e);
+    }
+    // sound.sprite = audioSprite;
+    // console.log(audioSprite);
+    // await fileUploadWrapper();
     //     for(let i=0;i<audioSprite.length;i++){
     //         let cur = audioSprite[i];
     //         let { id } = cur;
@@ -83,7 +75,10 @@ const init = async (src,maxLen)=>{
     //     }
     //     header.play();
     // }, this);
-    return audioSprite;
+    return {
+        audioSprite:sprite,
+        sound
+    };
 }
 
 

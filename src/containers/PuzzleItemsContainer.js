@@ -7,6 +7,9 @@ import {Queue} from "buckets-js";
 import 'antd/es/row/style/css.js';
 import 'antd/es/col/style/css.js';
 import 'antd/es/select/style/css';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import '../style/index.css';
+import { Howl, Howler } from 'howler';
 import vconsole from 'vconsole';
 import WaveSurfer from "wavesurfer.js";
 
@@ -97,13 +100,6 @@ const PuzzleItemsContainer  = class extends React.Component{
         const { audioSprite,songURL,sound,handleSoundUpdate } = this.props;
         const len = Object.keys(audioSprite).length;
         let shuffledIds = this.generateShuffledIds(len);
-        // handleSoundUpdate(setIsPlaying,setPlayingItemId,[false,null]);
-        // wavesurfer.load(songURL);
-        // wavesurfer.on('ready',()=>{
-        //     wavesurfer.play();
-        // });
-        // wavesurfer.on('error',(e)=>{
-        //     console.log(e);
         this.setState({
             shuffledIds
         })
@@ -116,31 +112,66 @@ const PuzzleItemsContainer  = class extends React.Component{
         return _.shuffle(arr);
     }
 
+    onDragEnd = (res)=>{
+        const startIndex = res.source.index;
+        const endIndex = res.destination.index;
+        const list = this.state.shuffledIds;
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+
+        this.setState({
+            shuffledIds: result
+        })
+    }
+
     renderItems = (audioSprite,len,setIsPlaying,playing,setShowAns,showAns)=>{
         let span = Math.round(24/len);
         let { sound } = this.props;
         let { shuffledIds,playingItemId } = this.state;
         const { setPlayingItemId } = this;
-        return <Row>
-                { _.map(shuffledIds,(item,i)=>
-                    <Col spa={span} key={i}>
-                        <PuzzleItemComponent id={item}
-                                             sprite={audioSprite[item]}
-                                             sound={sound}
-                                             key={i}
-                                             title={i}
-                                             puzzleItem={item}
-                                             setIsPlaying={setIsPlaying}
-                                             playing={playing}
-                                             setShowAns={setShowAns}
-                                             showAns={showAns}
-                                             setPlayingItemId = { setPlayingItemId }
-                                             playingItemId={playingItemId}
+        return <DragDropContext onDragEnd={ this.onDragEnd }>
+                <Droppable droppableId="droppable" direction="horizontal" id='dropable' >
+                {
+                    (provided, snapshot) => {
+                       return <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            { _.map(shuffledIds,(item,i)=>
+                                <Draggable key={i} draggableId={`item-${i}`} index={i}>
+                                    {(provided, snapshot) => (
+                                        <div ref={provided.innerRef}
+                                             {...provided.draggableProps}
+                                             {...provided.dragHandleProps}
+                                        >
+                                            <Col spa={span} key={i}>
+                                                <PuzzleItemComponent id={item}
+                                                                     sprite={audioSprite[item]}
+                                                                     sound={sound}
+                                                                     key={i}
+                                                                     title={i}
+                                                                     puzzleItem={item}
+                                                                     setIsPlaying={setIsPlaying}
+                                                                     playing={playing}
+                                                                     setShowAns={setShowAns}
+                                                                     showAns={showAns}
+                                                                     setPlayingItemId={setPlayingItemId}
+                                                                     playingItemId={playingItemId}
 
-                        />
-                    </Col>)
+                                                />
+                                            </Col>
+                                        </div>
+                                    )}
+                                </Draggable>
+                            )
+                            }
+                           {provided.placeholder}
+                       </div>
                 }
-               </Row>
+                }
+                </Droppable>
+            </DragDropContext>
     }
 
     setShowAns = (showAns)=>{
@@ -148,19 +179,6 @@ const PuzzleItemsContainer  = class extends React.Component{
             showAns
         })
     }
-
-    renderWaveSurf = ()=>{
-        const { audioSprite,songURL } = this.props;
-        const { wavesurfer,playingItemId } = this.state;
-        const audio =  audioSprite[playingItemId];
-        // wavesurfer.load(songURL);
-        // console.log(audio);
-        // wavesurfer.on('ready',()=>{
-        //     wavesurfer.setMute();
-        //     wavesurfer.play(audio[0]/1000,audio[1]/1000);
-        // })
-    }
-
 
     render(){
         const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props } = this;

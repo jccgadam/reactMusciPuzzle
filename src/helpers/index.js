@@ -31,6 +31,19 @@ const loadSrcWrapper = (src,sprite=[])=>{
         });
     })
 }
+
+
+const playSoundByString = (str,sound)=>{
+    if(str.length>1){
+        sound._onend[0] = playSoundByString(str.substring(1,str.length),sound);
+    } else {
+        // sound._onend[0] = function(){};
+    }
+    if(str.length>0){
+        sound.play('key'+str.substring(0,1));
+        return 'key'+str.substring(0,1);
+    }
+};
 const init = async (src)=>{
     let preloadSound = null;
     let sound = null;
@@ -83,7 +96,6 @@ const init = async (src)=>{
 
 
 export default {
-    // playMusic,
-    // generateSprite,
-    init
+    init,
+    playSoundByString
 }

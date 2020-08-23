@@ -24,7 +24,6 @@ const PuzzleContainerWrapper = class extends React.Component{
             maxLen: songSrc[0].maxLen,
             sound:null,
             audioSprite:[],
-
         }
     }
 
@@ -50,6 +49,7 @@ const PuzzleContainerWrapper = class extends React.Component{
     handleInit = async  (songURL)=>{
         const { init } = helpers;
         const { sound,audioSprite} = await init(songURL);
+        console.log(sound);
         this.setState({
             audioSprite,
             sound,
@@ -69,8 +69,6 @@ const PuzzleContainerWrapper = class extends React.Component{
                     </Row>
                </div>
     }
-
-
 }
 
 export default PuzzleContainerWrapper;

@@ -26,6 +26,7 @@ import WaveSurfer from "wavesurfer.js";
 //                     }
 //                 ];
 // const { Option } = Select;
+const colorList =['#CD5C5C','#F08080','#FA8072','#E9967A'];
 const PuzzleItemsContainer  = class extends React.Component{
     constructor(){
         super();
@@ -38,6 +39,7 @@ const PuzzleItemsContainer  = class extends React.Component{
             showAns: false,
             shuffledIds:[],
             playingItemId: null,
+            originPlaying: false
 
         }
         this.ref = null;
@@ -99,7 +101,7 @@ const PuzzleItemsContainer  = class extends React.Component{
         const { setIsPlaying,setPlayingItemId} = this;
         const { audioSprite,songURL,sound,handleSoundUpdate } = this.props;
         const len = Object.keys(audioSprite).length;
-        let shuffledIds = this.generateShuffledIds(len);
+        let shuffledIds = this.generateShuffledIds(len-1);
         this.setState({
             shuffledIds
         })
@@ -150,6 +152,7 @@ const PuzzleItemsContainer  = class extends React.Component{
                                                                      sprite={audioSprite[item]}
                                                                      sound={sound}
                                                                      key={i}
+                                                                     backgroundColor={colorList[item]}
                                                                      title={i}
                                                                      puzzleItem={item}
                                                                      setIsPlaying={setIsPlaying}
@@ -180,14 +183,41 @@ const PuzzleItemsContainer  = class extends React.Component{
         })
     }
 
-    render(){
-        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props } = this;
-        const { playing,showAns,playingItemId } = state;
-        const { audioSprite } = props;
-        const len = Object.keys(audioSprite).length;
+    renderOriginTrack=(sound)=>{
+        const { handlePlaOriginTrackPlay } = this;
+        const { playingItemId } = this.state;
+        return <Card title={'Origin Sound Track'}>
+                <Button onClick={()=>handlePlaOriginTrackPlay(sound)}>{ playingItemId ? 'Stop' :'Play' }</Button>
+               </Card>
+    }
 
+    handlePlaOriginTrackPlay=(sound)=>{
+        const { playingItemId,playing } = this.state;
+        if(playingItemId!=null) {
+            sound.stop();
+            this.setState({
+                playingItemId: null,
+                playing: false
+            })
+        }else{
+            sound.play('origin');
+            this.setState({
+                playingItemId: 'origin',
+                playing: true,
+            })
+        }
+
+    }
+    render(){
+        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props,renderOriginTrack } = this;
+        const { playing,showAns,playingItemId } = state;
+        const { audioSprite,sound } = props;
+        const len = Object.keys(audioSprite).length;
+        const originTrack = _.filter(audioSprite,(k,v)=>v==='origin');
+        const spriteTracks = _.filter(audioSprite,(k,v)=>v!=='origin');
         return <div>
-                { renderItems(audioSprite,len,setIsPlaying,playing,setShowAns,showAns) }
+                { renderOriginTrack(sound) }
+                { renderItems(spriteTracks,len,setIsPlaying,playing,setShowAns,showAns) }
                 { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
                </div>
 

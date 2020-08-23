@@ -44,9 +44,9 @@ const PuzzleItemComponent = class extends React.Component{
 
     render(){
         const { props,createSoundItem,renderButton } = this;
-        const { id,setIsPlaying,playing,title,showAns,sound,setPlayingItemId } = props;
+        const { id,setIsPlaying,playing,title,showAns,sound,setPlayingItemId,backgroundColor } = props;
 
-        return <Card title={title+''} extra={showAns&&<div>Seq: {id}</div>}>
+        return <Card title={title+''} extra={showAns&&<div>Seq: {id}</div>} headStyle={{ backgroundColor }}>
                 { renderButton( sound,id,playing,setIsPlaying,setPlayingItemId )}
                </Card>
     }

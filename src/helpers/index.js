@@ -17,6 +17,7 @@ const generateSprite = (maxLen,cut)=>{
         startTime = endTime+1;
         id = parseInt(id)+1+'';
     }
+    _.set(audioSprite,'origin',[0,maxLen]);
     return audioSprite;
 }
 const loadSrcWrapper = (src,sprite=[])=>{

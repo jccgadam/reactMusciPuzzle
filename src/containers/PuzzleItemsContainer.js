@@ -11,7 +11,7 @@ import 'antd/es/select/style/css';
 import 'antd/es/message/style/css';
 import 'antd/es/modal/style/css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import '../style/index.css';
+import '../style/index.scss';
 
 const colorList =['#CD5C5C','#F08080','#FA8072','#E9967A'];
 const PuzzleItemsContainer  = class extends React.Component{
@@ -166,9 +166,13 @@ const PuzzleItemsContainer  = class extends React.Component{
     renderOriginTrack=(sound)=>{
         const { handlePlaOriginTrackPlay } = this;
         const { playingItemId } = this.state;
-        return <Card title={'Origin Sound Track'}>
-                <Button onClick={()=>handlePlaOriginTrackPlay(sound)} style={{ width:'auto !important'}}>{ playingItemId ? 'Stop' :'Play' }</Button>
-               </Card>
+        const btn = <Button onClick={()=>handlePlaOriginTrackPlay(sound)} className='playOriginButton'>
+                    { playingItemId ? 'Stop' :'Play Origin' }
+                    </Button>
+        return btn;
+        // return <Card title={btn}>
+        //         {/*<Button onClick={()=>handlePlaOriginTrackPlay(sound)} style={{ width:'auto !important'}}>{ playingItemId ? 'Stop' :'Play' }</Button>*/}
+        //        </Card>
     }
 
     handlePlaOriginTrackPlay=(sound)=>{
@@ -195,12 +199,14 @@ const PuzzleItemsContainer  = class extends React.Component{
         const len = Object.keys(audioSprite).length;
         const originTrack = _.filter(audioSprite,(k,v)=>v==='origin');
         const spriteTracks = _.filter(audioSprite,(k,v)=>v!=='origin');
-        return <div>
-                <Button type='primary' onClick={()=>reselectSound()}>Reselect Sound</Button>
-                { renderOriginTrack(sound) }
-                { soundTrackOrdered&&renderSuccessModal() }
-                { renderItems(spriteTracks,len,setIsPlaying,playing,setShowAns,showAns) }
-                { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
+        return <div className='outerDiv'>
+                <Button type='primary' className='reslectButton' onClick={()=>reselectSound()}>Reselect Sound</Button>
+                <div className='innerDiv'>
+                    { renderOriginTrack(sound) }
+                    { soundTrackOrdered&&renderSuccessModal() }
+                    { renderItems(spriteTracks,len,setIsPlaying,playing,setShowAns,showAns) }
+                    { !!len&&<Button className='showAnsButton' onClick={()=>setShowAns(!showAns)}>Show Ans</Button> }
+                </div>
                </div>
 
         // return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>

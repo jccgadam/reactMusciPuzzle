@@ -1,0 +1,33 @@
+[data-rbd-droppable-id='droppable']{
+    display: flex;
+    width: 80vw;
+}
+
+[data-rbd-drag-handle-context-id="0"]{
+    width: 25%;
+}
+
+.showAnsButton{
+    margin-top: 40px;
+    align-self: center;
+}
+
+.reslectButton{
+    margin-bottom: 40px;
+    align-self: flex-start;
+}
+.playOriginButton{
+    align-self: flex-start;
+    margin-bottom: 20px;
+}
+
+.outerDiv{
+    display: flex;
+    flex-direction: column;
+    .innerDiv{
+        display: flex;
+        flex-direction: column;
+        border:solid 1px #eeeeee;
+        padding:20px;
+    }
+}

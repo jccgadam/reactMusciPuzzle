@@ -1,8 +1,0 @@
-[data-rbd-droppable-id='droppable']{
-    display: flex;
-    width: 80vw;
-}
-
-[data-rbd-drag-handle-context-id="0"]{
-    width: 25%;
-}

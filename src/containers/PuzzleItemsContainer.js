@@ -25,7 +25,8 @@ const PuzzleItemsContainer  = class extends React.Component{
             shuffledIds:[],
             playingItemId: null,
             originPlaying: false,
-            soundTrackOrdered:false
+            soundTrackOrdered:false,
+            moves:0
 
         }
         this.ref = null;
@@ -69,7 +70,7 @@ const PuzzleItemsContainer  = class extends React.Component{
 
     renderSuccessModal = ()=>{
         const { generateShuffledIds,state,reselectSound } = this;
-        const { shuffledIds } = state;
+        const { shuffledIds,moves } = state;
         const shuffleSameSoundTrack = ()=>{
                this.setState({
                    shuffledIds: generateShuffledIds(shuffledIds.length),
@@ -85,10 +86,11 @@ const PuzzleItemsContainer  = class extends React.Component{
                       onOk={()=>shuffleSameSoundTrack()}
                       onCancel={()=>reselectSound()}
                 >
-                Grats! You got the song right!
+                {`Grats! You got the song right in ${moves} steps!`}
                </Modal>
     }
     onDragEnd = (res)=>{
+        let { moves } = this.state;
         const startIndex = res.source.index;
         const endIndex = res.destination.index;
         const list = this.state.shuffledIds;
@@ -102,7 +104,8 @@ const PuzzleItemsContainer  = class extends React.Component{
            })
         }
         this.setState({
-            shuffledIds: result
+            shuffledIds: result,
+            moves: ++moves
         })
     }
 
@@ -164,7 +167,7 @@ const PuzzleItemsContainer  = class extends React.Component{
     }
 
     renderOriginTrack=(sound)=>{
-        const { handlePlaOriginTrackPlay,props } = this;
+        const { handlePlaOriginTrackPlay,props,renderMoveCount } = this;
         const { playingItemId } = this.state;
         const { songName } = props;
         const btn = <Button onClick={()=>handlePlaOriginTrackPlay(sound)} className='playOriginButton'>
@@ -173,8 +176,15 @@ const PuzzleItemsContainer  = class extends React.Component{
         return <div className='headerWrapper'>
                     <span className='songName'>{ songName }</span>
                     {btn}
+                    { renderMoveCount() }
                </div>;
 
+    }
+
+    renderMoveCount = ()=>{
+        const { state } = this;
+        const { moves } = state;
+        return <div className='moveCount'>Total Moves:{ moves }</div>
     }
 
     handlePlaOriginTrackPlay=(sound)=>{

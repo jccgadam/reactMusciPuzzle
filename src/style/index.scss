@@ -18,7 +18,6 @@
 }
 .playOriginButton{
     align-self: flex-start;
-    margin-bottom: 20px;
 }
 
 .outerDiv{
@@ -32,9 +31,16 @@
     }
 }
 .headerWrapper{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center;
     span.songName{
-        margin-right: 20px;
         border:solid 1px white;
+    }
+
+    div.moveCount{
+        margin-left: auto;
     }
 }
 .soundItem{

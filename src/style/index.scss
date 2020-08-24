@@ -8,12 +8,12 @@
 }
 
 .showAnsButton{
-    margin-top: 40px;
+    margin-top: 20px;
     align-self: center;
 }
 
 .reslectButton{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     align-self: flex-start;
 }
 .playOriginButton{
@@ -30,4 +30,19 @@
         border:solid 1px #eeeeee;
         padding:20px;
     }
+}
+.headerWrapper{
+    span.songName{
+        margin-right: 20px;
+        border:solid 1px white;
+    }
+}
+.soundItem{
+    .ant-card-body{
+        text-align: center;
+        button{
+            min-width: 50%;
+        }
+    }
+
 }

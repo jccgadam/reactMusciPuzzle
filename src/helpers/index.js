@@ -47,14 +47,14 @@ const playSoundByString = (str,sound)=>{
 };
 const isSorted =(arr)=> arr.slice(1).every((item, i) => arr[i] <= item);
 
-const init = async (src)=>{
+const init = async (src,cut)=>{
     let preloadSound = null;
     let sound = null;
     let sprite = null;
     try{
         preloadSound = await loadSrcWrapper(src);
         let maxLen = preloadSound.duration();
-        sprite = (generateSprite(maxLen*1000,4));
+        sprite = (generateSprite(maxLen*1000,cut));
         sound = await loadSrcWrapper(src,sprite);
     }catch (e){
         console.log(e);

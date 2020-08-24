@@ -13,7 +13,7 @@ import 'antd/es/modal/style/css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import '../style/index.scss';
 
-const colorList =['#CD5C5C','#F08080','#FA8072','#E9967A'];
+const colorList =['#CD5C5C','#F08080','#FA8072','#E9967A','#3D9970','#FF4136','#0074D9'];
 const PuzzleItemsContainer  = class extends React.Component{
     constructor(){
         super();
@@ -164,15 +164,17 @@ const PuzzleItemsContainer  = class extends React.Component{
     }
 
     renderOriginTrack=(sound)=>{
-        const { handlePlaOriginTrackPlay } = this;
+        const { handlePlaOriginTrackPlay,props } = this;
         const { playingItemId } = this.state;
+        const { songName } = props;
         const btn = <Button onClick={()=>handlePlaOriginTrackPlay(sound)} className='playOriginButton'>
                     { playingItemId ? 'Stop' :'Play Origin' }
                     </Button>
-        return btn;
-        // return <Card title={btn}>
-        //         {/*<Button onClick={()=>handlePlaOriginTrackPlay(sound)} style={{ width:'auto !important'}}>{ playingItemId ? 'Stop' :'Play' }</Button>*/}
-        //        </Card>
+        return <div className='headerWrapper'>
+                    <span className='songName'>{ songName }</span>
+                    {btn}
+               </div>;
+
     }
 
     handlePlaOriginTrackPlay=(sound)=>{

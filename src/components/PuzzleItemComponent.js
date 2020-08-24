@@ -38,7 +38,7 @@ const PuzzleItemComponent = class extends React.Component{
        };
 
 
-       return <Button onClick={()=> { playing ? stop() : play() } }  style={{ width: 'auto' }}>{ !playing ? 'play': 'stop' }</Button>
+       return <Button onClick={()=> { playing ? stop() : play() } }>{ !playing ? 'play': 'stop' }</Button>
 
     }
 
@@ -46,7 +46,7 @@ const PuzzleItemComponent = class extends React.Component{
         const { props,createSoundItem,renderButton } = this;
         const { id,setIsPlaying,playing,title,showAns,sound,setPlayingItemId,backgroundColor } = props;
 
-        return <Card title={title+''} extra={showAns&&<div>Seq: {id}</div>} headStyle={{ backgroundColor }}>
+        return <Card title={title+''} extra={showAns&&<div>Seq: {id}</div>} headStyle={{ backgroundColor }} className='soundItem'>
                 { renderButton( sound,id,playing,setIsPlaying,setPlayingItemId )}
                </Card>
     }

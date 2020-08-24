@@ -19,7 +19,7 @@ const PuzzleContainerWrapper = class extends React.Component{
     constructor(){
         super();
         this.state = {
-            isInited: false,
+            started: false,
             songURL: songSrc[0].value,
             maxLen: songSrc[0].maxLen,
             sound:null,

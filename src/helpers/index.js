@@ -45,6 +45,8 @@ const playSoundByString = (str,sound)=>{
         return 'key'+str.substring(0,1);
     }
 };
+const isSorted =(arr)=> arr.slice(1).every((item, i) => arr[i] <= item);
+
 const init = async (src)=>{
     let preloadSound = null;
     let sound = null;
@@ -98,5 +100,6 @@ const init = async (src)=>{
 
 export default {
     init,
-    playSoundByString
+    playSoundByString,
+    isSorted
 }

@@ -1,4 +1,4 @@
-import { Card,Button,Row,Col,Select } from 'antd';
+import { Card,Button,Row,Col,Select,message,notification,Modal } from 'antd';
 import PuzzleItemComponent from '../components/PuzzleItemComponent';
 import React from 'react';
 import helpers from "../helpers";
@@ -6,7 +6,10 @@ import _ from 'lodash';
 import {Queue} from "buckets-js";
 import 'antd/es/row/style/css.js';
 import 'antd/es/col/style/css.js';
+import 'antd/es/notification/style/css';
 import 'antd/es/select/style/css';
+import 'antd/es/message/style/css';
+import 'antd/es/modal/style/css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import '../style/index.css';
 import { Howl, Howler } from 'howler';
@@ -39,7 +42,8 @@ const PuzzleItemsContainer  = class extends React.Component{
             showAns: false,
             shuffledIds:[],
             playingItemId: null,
-            originPlaying: false
+            originPlaying: false,
+            soundTrackOrdered:false
 
         }
         this.ref = null;
@@ -114,6 +118,18 @@ const PuzzleItemsContainer  = class extends React.Component{
         return _.shuffle(arr);
     }
 
+    renderSuccessModal = ()=>{
+        const { generateShuffledIds,state } = this;
+        const { shuffledIds } = state;
+        const shuffleSameSoundTrack = ()=>{
+               this.setState({
+                   shuffledIds: generateShuffledIds(shuffledIds.length),
+                   soundTrackOrdered: false,
+                   showAns: false
+               })
+        }
+        return <Modal visible={true} wrapClassName={'successModal'} onOk={()=>shuffleSameSoundTrack()}></Modal>
+    }
     onDragEnd = (res)=>{
         const startIndex = res.source.index;
         const endIndex = res.destination.index;
@@ -121,7 +137,12 @@ const PuzzleItemsContainer  = class extends React.Component{
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);
         result.splice(endIndex, 0, removed);
-
+        const soundTrackOrdered =  (helpers.isSorted(result));
+        if(soundTrackOrdered) {
+           this.setState({
+               soundTrackOrdered
+           })
+        }
         this.setState({
             shuffledIds: result
         })
@@ -209,14 +230,15 @@ const PuzzleItemsContainer  = class extends React.Component{
 
     }
     render(){
-        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props,renderOriginTrack } = this;
-        const { playing,showAns,playingItemId } = state;
+        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props,renderOriginTrack ,renderSuccessModal} = this;
+        const { playing,showAns,playingItemId,soundTrackOrdered } = state;
         const { audioSprite,sound } = props;
         const len = Object.keys(audioSprite).length;
         const originTrack = _.filter(audioSprite,(k,v)=>v==='origin');
         const spriteTracks = _.filter(audioSprite,(k,v)=>v!=='origin');
         return <div>
                 { renderOriginTrack(sound) }
+                { soundTrackOrdered&&renderSuccessModal() }
                 { renderItems(spriteTracks,len,setIsPlaying,playing,setShowAns,showAns) }
                 { !!len&&<Button onClick={()=>setShowAns(true)}>Show Ans</Button> }
                </div>

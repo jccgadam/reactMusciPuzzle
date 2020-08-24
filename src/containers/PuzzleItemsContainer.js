@@ -12,30 +12,12 @@ import 'antd/es/message/style/css';
 import 'antd/es/modal/style/css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import '../style/index.css';
-import { Howl, Howler } from 'howler';
-import vconsole from 'vconsole';
-import WaveSurfer from "wavesurfer.js";
 
-// let v = new vconsole();
-// const songSrc = [
-//                     {
-//                         key:'easy',
-//                         value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you-34s.mp3',
-//                         maxLen: 33*1000
-//                     },
-//                     {   key:'normal',
-//                         value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice-30.mp3',
-//                         maxLen: 30*1000
-//                     }
-//                 ];
-// const { Option } = Select;
 const colorList =['#CD5C5C','#F08080','#FA8072','#E9967A'];
 const PuzzleItemsContainer  = class extends React.Component{
     constructor(){
         super();
         this.state = {
-            // sound:null,
-            // audioSprite:[],
             started: false,
             playing:false,
             audioQueue: null,
@@ -55,45 +37,6 @@ const PuzzleItemsContainer  = class extends React.Component{
             playingItemId
         })
     }
-    // handleChangeSel = (songURL,v)=>{
-    //     const { maxlen } = v;
-    //     this.setState({
-    //         songURL,
-    //         maxLen:maxlen
-    //     })
-    // }
-
-    // renderSel = ()=>{
-    //     const { handleChangeSel } = this;
-    //     return     <Select style={{ width: 120 }} onChange={handleChangeSel} style={{ width: '100px' }} defaultValue={songSrc[0].value}>
-    //                     {
-    //                         _.map(songSrc,({key,value,maxLen},i)=>{
-    //                             return <Option value={value} key={i} maxlen={maxLen} >{key}</Option>
-    //                         })
-    //                     }
-    //                </Select>
-    //
-    // }
-
-    // handleInit = async  (songURL)=>{
-    //     const { init } = helpers;
-    //     const { sound,audioSprite} = await init(songURL);
-    //     this.setState({
-    //         audioSprite,
-    //         sound,
-    //         started: true
-    //     })
-    // }
-
-    // componentDidMount(){
-    //     let ref = this.ref;
-    //     let wavesurfer = WaveSurfer.create({
-    //         container: ref
-    //     });
-    //     this.setState({
-    //         wavesurfer,
-    //     })
-    // }
 
     setIsPlaying = (playing)=>{
         this.setState({
@@ -118,8 +61,14 @@ const PuzzleItemsContainer  = class extends React.Component{
         return _.shuffle(arr);
     }
 
+    reselectSound = ()=>{
+        const { props } = this;
+        const { resetState } = props;
+        resetState();
+    }
+
     renderSuccessModal = ()=>{
-        const { generateShuffledIds,state } = this;
+        const { generateShuffledIds,state,reselectSound } = this;
         const { shuffledIds } = state;
         const shuffleSameSoundTrack = ()=>{
                this.setState({
@@ -128,7 +77,16 @@ const PuzzleItemsContainer  = class extends React.Component{
                    showAns: false
                })
         }
-        return <Modal visible={true} wrapClassName={'successModal'} onOk={()=>shuffleSameSoundTrack()}></Modal>
+        const okText='Click to play this song again.'
+        const cancelText = 'Play another song.'
+        return <Modal visible={true} wrapClassName={'successModal'}
+                      okText={ okText }
+                      cancelText={ cancelText }
+                      onOk={()=>shuffleSameSoundTrack()}
+                      onCancel={()=>reselectSound()}
+                >
+                Grats! You got the song right!
+               </Modal>
     }
     onDragEnd = (res)=>{
         const startIndex = res.source.index;
@@ -160,15 +118,16 @@ const PuzzleItemsContainer  = class extends React.Component{
                        return <div
                             ref={provided.innerRef}
                             {...provided.droppableProps}
+                            className='row'
                         >
                             { _.map(shuffledIds,(item,i)=>
-                                <Draggable key={i} draggableId={`item-${i}`} index={i}>
+                                <Draggable key={i} draggableId={`item-${i}`} index={i} style={{ width:'20%' }}>
                                     {(provided, snapshot) => (
                                         <div ref={provided.innerRef}
                                              {...provided.draggableProps}
                                              {...provided.dragHandleProps}
                                         >
-                                            <Col spa={span} key={i}>
+                                            <Col span={24} key={i}>
                                                 <PuzzleItemComponent id={item}
                                                                      sprite={audioSprite[item]}
                                                                      sound={sound}
@@ -208,7 +167,7 @@ const PuzzleItemsContainer  = class extends React.Component{
         const { handlePlaOriginTrackPlay } = this;
         const { playingItemId } = this.state;
         return <Card title={'Origin Sound Track'}>
-                <Button onClick={()=>handlePlaOriginTrackPlay(sound)}>{ playingItemId ? 'Stop' :'Play' }</Button>
+                <Button onClick={()=>handlePlaOriginTrackPlay(sound)} style={{ width:'auto !important'}}>{ playingItemId ? 'Stop' :'Play' }</Button>
                </Card>
     }
 
@@ -230,13 +189,14 @@ const PuzzleItemsContainer  = class extends React.Component{
 
     }
     render(){
-        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props,renderOriginTrack ,renderSuccessModal} = this;
+        const { renderItems,handleInit,state,setIsPlaying,setShowAns,renderSel,props,renderOriginTrack ,renderSuccessModal,reselectSound} = this;
         const { playing,showAns,playingItemId,soundTrackOrdered } = state;
         const { audioSprite,sound } = props;
         const len = Object.keys(audioSprite).length;
         const originTrack = _.filter(audioSprite,(k,v)=>v==='origin');
         const spriteTracks = _.filter(audioSprite,(k,v)=>v!=='origin');
         return <div>
+                <Button type='primary' onClick={()=>reselectSound()}>Reselect Sound</Button>
                 { renderOriginTrack(sound) }
                 { soundTrackOrdered&&renderSuccessModal() }
                 { renderItems(spriteTracks,len,setIsPlaying,playing,setShowAns,showAns) }

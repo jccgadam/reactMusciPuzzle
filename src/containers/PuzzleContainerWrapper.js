@@ -15,9 +15,16 @@ const songSrc = [
                 ];
 
 const { Option } = Select;
+const initState = {
+        started: false,
+        songURL: songSrc[0].value,
+        maxLen: songSrc[0].maxLen,
+        sound:null,
+        audioSprite:[],
+}
 const PuzzleContainerWrapper = class extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             started: false,
             songURL: songSrc[0].value,
@@ -26,7 +33,15 @@ const PuzzleContainerWrapper = class extends React.Component{
             audioSprite:[],
         }
     }
-
+    resetState = ()=>{
+        this.setState({
+            started: false,
+            songURL: songSrc[0].value,
+            maxLen: songSrc[0].maxLen,
+            sound:null,
+            audioSprite:[],
+        })
+    }
     handleChangeSel = (songURL,v)=>{
         const { maxlen } = v;
         this.setState({
@@ -49,7 +64,6 @@ const PuzzleContainerWrapper = class extends React.Component{
     handleInit = async  (songURL)=>{
         const { init } = helpers;
         const { sound,audioSprite} = await init(songURL);
-        console.log(sound);
         this.setState({
             audioSprite,
             sound,
@@ -58,13 +72,15 @@ const PuzzleContainerWrapper = class extends React.Component{
     }
 
     render(){
-        const { handleInit,state,renderSel,handleSoundUpdate } = this;
+        const { handleInit,state,renderSel,handleSoundUpdate,resetState } = this;
         const { audioSprite,started,songURL,maxLen,sound } = state;
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
+                    {/*{ started&&<Button type='primary' onClick={()=>resetState()}>Reselect Sound</Button>}*/}
                     <Row style={{ marginTop: 10 }}>
                         { !started&&renderSel() }
                         { !started && <Button onClick={()=>handleInit(songURL,maxLen)}>Start Game</Button> }
                         { started&&<PuzzleItemsContainer audioSprite={audioSprite} sound={sound}
+                                                         resetState={resetState}
                                                          songURL={songURL} handleSoundUpdate={handleSoundUpdate}/> }
                     </Row>
                </div>

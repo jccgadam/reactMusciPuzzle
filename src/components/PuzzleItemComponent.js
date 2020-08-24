@@ -38,7 +38,7 @@ const PuzzleItemComponent = class extends React.Component{
        };
 
 
-       return <Button onClick={()=> { playing ? stop() : play() } }  style={{ width: 300 }}>{ !playing ? 'play': 'stop' }</Button>
+       return <Button onClick={()=> { playing ? stop() : play() } }  style={{ width: 'auto' }}>{ !playing ? 'play': 'stop' }</Button>
 
     }
 

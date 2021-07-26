@@ -32,9 +32,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/containers/PuzzleContainerWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PuzzleContainerWrapper.js" afterDir="false" />
-    </list>
+    <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

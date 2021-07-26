@@ -93,9 +93,9 @@ const PuzzleItemsContainer  = class extends React.Component{
         let { moves } = this.state;
         const startIndex = _.get(res,'source.index');
         const endIndex = _.get(res,'destination.index');
-        if(!startIndex || !endIndex){
-            return;
-        }
+        // if(!startIndex || !endIndex){
+        //     return;
+        // }
         const list = this.state.shuffledIds;
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);

@@ -34,7 +34,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +133,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="100" y="125" width="1480" height="825" key="DiffContextDialog" timestamp="1627288739685">
+      <screen x="0" y="25" width="1680" height="1025" />
+    </state>
+    <state x="100" y="125" width="1480" height="825" key="DiffContextDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1627288739685" />
+    <state x="607" y="239" key="VCS.ChangeListViewerDialog" timestamp="1627288482651">
+      <screen x="0" y="25" width="1680" height="1025" />
+    </state>
+    <state x="607" y="239" key="VCS.ChangeListViewerDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1627288482651" />
     <state x="541" y="292" width="597" height="490" key="find.popup" timestamp="1627287624306">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

@@ -13,6 +13,11 @@ const songSrc = [
                     {   key:'normal',
                         value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice-30.mp3',
                         songName: 'For Alice'
+                    },
+                    {
+                        key:'normal2',
+                        value:'https://muscipuzzlesongs.s3.amazonaws.com/lost_love_35s.mp3',
+                        songName:'Lost Love'
                     }
                 ];
 

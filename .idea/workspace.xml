@@ -33,12 +33,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Firebase/context.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Firebase/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PuzzleItemsContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PuzzleContainerWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PuzzleContainerWrapper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +70,9 @@
         </selected-state>
       </profile-state>
     </entry>
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />

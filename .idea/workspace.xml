@@ -32,7 +32,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="" />
+    <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,6 +131,12 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="541" y="292" width="597" height="490" key="find.popup" timestamp="1627287624306">
+      <screen x="0" y="25" width="1680" height="1025" />
+    </state>
+    <state x="541" y="292" width="597" height="490" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1627287624306" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

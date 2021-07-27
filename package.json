@@ -11,7 +11,7 @@
     "buckets-js": "^1.98.2",
     "firebase": "^8.2.2",
     "howler": "^2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-aws-s3": "^1.5.0",

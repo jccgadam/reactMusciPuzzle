@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
-
+import { ReactS3Client } from '../config/index';
 import PuzzleItemsContainer from '../containers/PuzzleItemsContainer';
 import {Select,Row,Button} from "antd/lib/index";
 import helpers from "../helpers";
+import { message } from 'antd';
 const songSrc = [
                     {
                         key:'easy',
@@ -83,8 +84,23 @@ const PuzzleContainerWrapper = class extends React.Component{
             started: true
         })
     }
+    onFileChange = (event)=>{
+        this.setState({
+            file:event.target.files[0]
+        })
+    }
+
+    upload = ()=>{
+        const { file } = this.state;
+        console.log(file);
+        // client.upload({bucket:'muscipuzzlesongs'})
+        ReactS3Client.uploadFile(file,file.name)
+            .then(res=>message.info(`${file.name} is uploaded!`))
+            .catch(error=>console.log(error))
+    }
 
     render(){
+        console.log(this.state.file);
         const { handleInit,state,renderSel,handleSoundUpdate,resetState,renderCutSel } = this;
         const { audioSprite,started,songURL,maxLen,sound,songName,cut } = state;
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
@@ -98,6 +114,8 @@ const PuzzleContainerWrapper = class extends React.Component{
                                                          songName={songName}
                                                          songURL={songURL} handleSoundUpdate={handleSoundUpdate}/> }
                     </Row>
+                    <input type="file" accept='.mp3' onChange={this.onFileChange}/>
+                    <button onClick={this.upload}>Upload</button>
                </div>
     }
 }

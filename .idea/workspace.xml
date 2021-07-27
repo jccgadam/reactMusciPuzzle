@@ -33,10 +33,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7730b04d-2bb2-4818-8fd2-30a9f0f99ee1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/PuzzleContainerWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PuzzleContainerWrapper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
@@ -53,6 +53,9 @@
     <exe-path />
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="1gWChoQ6wK1YXd2Og9Flkn5u4BJ" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -92,6 +95,7 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -113,7 +117,7 @@
       <workItem from="1594267516585" duration="7858000" />
       <workItem from="1598221085443" duration="2321000" />
       <workItem from="1610596204382" duration="1846000" />
-      <workItem from="1627354577330" duration="3541000" />
+      <workItem from="1627354577330" duration="6386000" />
     </task>
     <servers />
   </component>
@@ -137,22 +141,22 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="100" y="125" width="1480" height="825" key="DiffContextDialog/0.25.1680.1025@0.25.1680.1025" timestamp="1627288739685" />
-    <state width="1659" height="277" key="GridCell.Tab.0.bottom" timestamp="1627357272005">
+    <state width="1659" height="277" key="GridCell.Tab.0.bottom" timestamp="1627360637833">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1627357272005" />
-    <state width="1659" height="277" key="GridCell.Tab.0.center" timestamp="1627357272004">
+    <state width="1659" height="277" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1627360637833" />
+    <state width="1659" height="277" key="GridCell.Tab.0.center" timestamp="1627360637832">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1627357272004" />
-    <state width="1659" height="277" key="GridCell.Tab.0.left" timestamp="1627357272004">
+    <state width="1659" height="277" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1627360637832" />
+    <state width="1659" height="277" key="GridCell.Tab.0.left" timestamp="1627360637832">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1627357272004" />
-    <state width="1659" height="277" key="GridCell.Tab.0.right" timestamp="1627357272005">
+    <state width="1659" height="277" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1627360637832" />
+    <state width="1659" height="277" key="GridCell.Tab.0.right" timestamp="1627360637833">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
-    <state width="1659" height="277" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1627357272005" />
+    <state width="1659" height="277" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1627360637833" />
     <state x="607" y="239" key="VCS.ChangeListViewerDialog" timestamp="1627289022979">
       <screen x="0" y="25" width="1680" height="1025" />
     </state>

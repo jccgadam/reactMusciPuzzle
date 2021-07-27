@@ -1,33 +1,33 @@
 import React from 'react';
 import _ from 'lodash';
-import { ReactS3Client } from '../config/index';
+import { ReactS3Client,S3ClientObj,ListObjects } from '../config/index';
 import PuzzleItemsContainer from '../containers/PuzzleItemsContainer';
 import {Select,Row,Button} from "antd/lib/index";
 import helpers from "../helpers";
 import { message } from 'antd';
-const songSrc = [
-                    {
-                        key:'easy',
-                        value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you-34s.mp3',
-                        songName:'Miss You'
-                    },
-                    {   key:'normal',
-                        value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice-30.mp3',
-                        songName: 'For Alice'
-                    },
-                    {
-                        key:'normal2',
-                        value:'https://muscipuzzlesongs.s3.amazonaws.com/lost_love_35s.mp3',
-                        songName:'Lost Love'
-                    }
-                ];
+// const songSrc = [
+//                     {
+//                         key:'easy',
+//                         value:'https://muscipuzzlesongs.s3.amazonaws.com/miss+you-34s.mp3',
+//                         songName:'Miss You'
+//                     },
+//                     {   key:'normal',
+//                         value:'https://muscipuzzlesongs.s3.amazonaws.com/for+alice-30.mp3',
+//                         songName: 'For Alice'
+//                     },
+//                     {
+//                         key:'normal2',
+//                         value:'https://muscipuzzlesongs.s3.amazonaws.com/lost_love_35s.mp3',
+//                         songName:'Lost Love'
+//                     }
+//                 ];
 
 const { Option } = Select;
 const initState = {
         started: false,
-        songURL: songSrc[0].value,
-        maxLen: songSrc[0].maxLen,
-        songName:songSrc[0].songName,
+        songURL: '',
+        maxLen:'',
+        songName:'',
         sound:null,
         cut:4,
         audioSprite:[],
@@ -53,9 +53,33 @@ const PuzzleContainerWrapper = class extends React.Component{
             cut
         })
     }
+    componentDidMount() {
+        // S3ClientObj
+        const command =  new ListObjects({ Bucket:'muscipuzzlesongs'});
+        S3ClientObj.send(command).then(response=>{
+            const { Contents } = response;
+            this.setState({
+                songSrc:_.map(Contents,s=>({
+                    key:s.Key,
+                    value:`https://muscipuzzlesongs.s3.amazonaws.com/${s.Key}`,
+                    songName:s.Key
+                }))
+            })
+        });
+        // const { Contents } = response;
+        // this.setState({
+        //     songSrc:_.map(Contents,s=>({
+        //         key:s.Key,
+        //         value:`https://muscipuzzlesongs.s3.amazonaws.com/${s.Key}`,
+        //         songName:s.Key
+        //     }))
+        // })
+    }
+
     renderSel = ()=>{
         const { handleChangeSel } = this;
-        return <Select style={{ width: '100px' }} onChange={handleChangeSel} defaultValue={songSrc[0].value}>
+        const { songSrc=[{value:''}] } = this.state;
+        return <Select style={{ width: '200px' }} onChange={handleChangeSel} defaultValue={songSrc[0].value}>
             {
                 _.map(songSrc,({key,value,maxLen,songName},i)=>{
                     return <Option value={value} key={i} maxlen={maxLen} songname={songName}>{key}</Option>
@@ -92,23 +116,19 @@ const PuzzleContainerWrapper = class extends React.Component{
 
     upload = ()=>{
         const { file } = this.state;
-        console.log(file);
-        // client.upload({bucket:'muscipuzzlesongs'})
         ReactS3Client.uploadFile(file,file.name)
             .then(res=>message.info(`${file.name} is uploaded!`))
             .catch(error=>console.log(error))
     }
 
     render(){
-        console.log(this.state.file);
         const { handleInit,state,renderSel,handleSoundUpdate,resetState,renderCutSel } = this;
         const { audioSprite,started,songURL,maxLen,sound,songName,cut } = state;
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
-                    {/*{ started&&<Button type='primary' onClick={()=>resetState()}>Reselect Sound</Button>}*/}
                     <Row style={{ marginTop: 10 }}>
                         { !started&&renderSel() }
                         { !started&&renderCutSel() }
-                        { !started && <Button onClick={()=>handleInit(songURL,cut)}>Start Game</Button> }
+                        { !started && <Button onClick={()=>handleInit(songURL,cut)} disabled={ !songURL }>Start Game</Button> }
                         { started&&<PuzzleItemsContainer audioSprite={audioSprite} sound={sound}
                                                          resetState={resetState}
                                                          songName={songName}

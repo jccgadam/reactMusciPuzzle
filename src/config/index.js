@@ -1,5 +1,6 @@
 
 import S3 from 'react-aws-s3';
+import { S3Client, AbortMultipartUploadCommand,ListObjectsCommand } from "@aws-sdk/client-s3";
 
 const config = {
     bucketName: 'muscipuzzlesongs',
@@ -9,7 +10,8 @@ const config = {
     s3Url: 'https://muscipuzzlesongs.s3.us-east-1.amazonaws.com/'
 }
 export const ReactS3Client = new S3(config);
-
+export const S3ClientObj = new S3Client({ region: 'us-east-1',credentials:{  accessKeyId: 'AKIAX2URV73G3G2BSY52',
+        secretAccessKey: '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' } });
 
 // export const client = s3.createClient({
 //     maxAsyncS3: 20,     // this is the default
@@ -24,3 +26,4 @@ export const ReactS3Client = new S3(config);
 //         // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property
 //     },
 // });
+export const ListObjects = ListObjectsCommand;

@@ -173,11 +173,12 @@ const PuzzleItemsContainer  = class extends React.Component{
         const { handlePlaOriginTrackPlay,props,renderMoveCount } = this;
         const { playingItemId } = this.state;
         const { songName } = props;
+        const { _duration } = sound;
         const btn = <Button onClick={()=>handlePlaOriginTrackPlay(sound)} className='playOriginButton'>
                     { playingItemId ? 'Stop' :'Play Origin' }
                     </Button>
         return <div className='headerWrapper'>
-                    <span className='songName'>{ songName }</span>
+                    <span className='songName'>{`${songName} - ${Math.floor(_duration)}s`}</span>
                     {btn}
                     { renderMoveCount() }
                </div>;

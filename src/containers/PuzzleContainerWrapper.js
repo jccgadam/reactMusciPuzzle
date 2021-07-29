@@ -79,7 +79,7 @@ const PuzzleContainerWrapper = class extends React.Component{
     renderSel = ()=>{
         const { handleChangeSel } = this;
         const { songSrc=[{value:''}] } = this.state;
-        return <Select style={{ width: '200px' }} onChange={handleChangeSel} defaultValue={songSrc[0].value}>
+        return <Select style={{ width: '200px' }} onChange={handleChangeSel}>
             {
                 _.map(songSrc,({key,value,maxLen,songName},i)=>{
                     return <Option value={value} key={i} maxlen={maxLen} songname={songName}>{key}</Option>
@@ -105,7 +105,8 @@ const PuzzleContainerWrapper = class extends React.Component{
         this.setState({
             audioSprite,
             sound,
-            started: true
+            started: true,
+
         })
     }
     onFileChange = (event)=>{
@@ -125,17 +126,24 @@ const PuzzleContainerWrapper = class extends React.Component{
         const { handleInit,state,renderSel,handleSoundUpdate,resetState,renderCutSel } = this;
         const { audioSprite,started,songURL,maxLen,sound,songName,cut } = state;
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
-                    <Row style={{ marginTop: 10 }}>
-                        { !started&&renderSel() }
-                        { !started&&renderCutSel() }
-                        { !started && <Button onClick={()=>handleInit(songURL,cut)} disabled={ !songURL }>Start Game</Button> }
-                        { started&&<PuzzleItemsContainer audioSprite={audioSprite} sound={sound}
-                                                         resetState={resetState}
-                                                         songName={songName}
-                                                         songURL={songURL} handleSoundUpdate={handleSoundUpdate}/> }
+                    <Row style={{ marginTop: 10 }}  style={{ flexDirection:'column' }}>
+                        <div>
+                            { !started&&renderSel() }
+                            { !started&&renderCutSel() }
+                            { !started && <Button onClick={()=>handleInit(songURL,cut)} disabled={ !songURL }>Start Game</Button> }
+                            { started&&<PuzzleItemsContainer audioSprite={audioSprite} sound={sound}
+                                                             resetState={resetState}
+                                                             songName={songName}
+                                                             songURL={songURL} handleSoundUpdate={handleSoundUpdate}/> }
+                        </div>
+                        { !started &&
+                            <div style={{ marginTop: 300 }}>
+                                <input type="file" accept='.mp3' onChange={this.onFileChange}/>
+                                <button onClick={this.upload}>Upload</button>
+                            </div>
+                        }
                     </Row>
-                    <input type="file" accept='.mp3' onChange={this.onFileChange}/>
-                    <button onClick={this.upload}>Upload</button>
+
                </div>
     }
 }

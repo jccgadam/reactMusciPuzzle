@@ -31,6 +31,7 @@ const initState = {
         sound:null,
         cut:4,
         audioSprite:[],
+        uploading:false
 }
 const PuzzleContainerWrapper = class extends React.Component{
     constructor(props){
@@ -117,14 +118,23 @@ const PuzzleContainerWrapper = class extends React.Component{
 
     upload = ()=>{
         const { file } = this.state;
+        this.setState({
+            uploading: true
+        })
         ReactS3Client.uploadFile(file,file.name)
-            .then(res=>message.info(`${file.name} is uploaded!`))
+            .then(res=>{
+                message.info(`${file.name} is uploaded!`);
+                this.setState({
+                    uploading: false
+                })
+            })
             .catch(error=>console.log(error))
     }
 
     render(){
         const { handleInit,state,renderSel,handleSoundUpdate,resetState,renderCutSel } = this;
-        const { audioSprite,started,songURL,maxLen,sound,songName,cut } = state;
+        const { audioSprite,started,songURL,maxLen,sound,songName,cut,uploading } = state;
+        const buttonText = uploading ? 'Uploading':'Upload';
         return <div style={{ display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',height:'100vh'}}>
                     <Row style={{ marginTop: 10 }}  style={{ flexDirection:'column' }}>
                         <div>
@@ -139,7 +149,7 @@ const PuzzleContainerWrapper = class extends React.Component{
                         { !started &&
                             <div style={{ marginTop: 300 }}>
                                 <input type="file" accept='.mp3' onChange={this.onFileChange}/>
-                                <button onClick={this.upload}>Upload</button>
+                                <Button onClick={this.upload} loading={uploading}>{buttonText}</Button>
                             </div>
                         }
                     </Row>
